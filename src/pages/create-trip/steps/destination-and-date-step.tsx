@@ -1,5 +1,6 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from "lucide-react";
 import React from "react";
+import { Button } from "../../../components/button";
 
 interface DestinationAndDateStepProps {
   isGuestInputOpen: boolean;
@@ -37,21 +38,15 @@ export default function DestinationAndDateStep({
       <div className="w-px h-6 bg-zinc-800" />
 
       {isGuestInputOpen ? (
-        <button
-          onClick={closeGuestsInput}
-          className="bg-zinc-800 flex items-center gap-2 text-zinc-200 rounded-lg px-5 py-2 font-medium hover:bg-zinc-700"
-        >
+        <Button onClick={closeGuestsInput} variant="secondary">
           Alterar local e data
           <Settings2 className="size-5" />
-        </button>
+        </Button>
       ) : (
-        <button
-          onClick={openGuestInput}
-          className="bg-lime-300 flex items-center gap-2 text-lime-950 rounded-lg px-5 py-2 font-medium hover:bg-lime-400"
-        >
+        <Button onClick={openGuestInput} variant="primary">
           Continuar
           <ArrowRight className="size-5" />
-        </button>
+        </Button>
       )}
     </div>
   );
