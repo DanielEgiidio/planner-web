@@ -9,3 +9,17 @@
 input {
   color-scheme: dark;
 }
+
+.rdp-root {
+  --rdp-accent-color: #bef264; /* Change the accent color to indigo. */
+  --rdp-accent-background-color: #84cc16; /* Change the accent background color. */
+  /* Add more CSS variables here. */
+}
+
+.rdp-range_start .rdp-day_button {
+  color: #000 !important;
+}
+
+.rdp-range_end .rdp-day_button {
+  color: #000 !important;
+}
