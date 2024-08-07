@@ -3,6 +3,7 @@ import { Button } from "../../components/button";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
+import CreateGuestsModal from "./create-guest-modal";
 
 interface Participant {
   id: string;
@@ -14,11 +15,22 @@ interface Participant {
 export default function Guests() {
   const { tripId } = useParams();
   const [participants, setParticipants] = useState<Participant[]>([]);
+  const [isCreateGuestModalOpen, setIsCreateGuestModalOpen] = useState(false);
+
+  function openCreateGuestModal() {
+    setIsCreateGuestModalOpen(true);
+  }
+  function closeCreateGuestModal() {
+    setIsCreateGuestModalOpen(false);
+  }
 
   useEffect(() => {
     api
       .get(`trips/${tripId}/participants`)
-      .then((response) => setParticipants(response.data.participants));
+      .then((response) => setParticipants(response.data.participants))
+      .catch((error) => {
+        console.error("Error fetching participants:", error);
+      });
   }, [tripId]);
 
   return (
@@ -41,18 +53,22 @@ export default function Guests() {
             </div>
 
             {participant.is_confirmed ? (
-              <CheckCircle2 className="text-green-400 size-5 shrink-0" />
+              <CheckCircle2 className="text-green-400 w-5 h-5 shrink-0" />
             ) : (
-              <CircleDashed className="text-zinc-400 size-5 shrink-0" />
+              <CircleDashed className="text-zinc-400 w-5 h-5 shrink-0" />
             )}
           </div>
         ))}
       </div>
 
-      <Button variant="secondary" size="full">
-        <UserCog className="size-5" />
+      <Button onClick={openCreateGuestModal} variant="secondary" size="full">
+        <UserCog className="w-5 h-5" />
         Gerenciar convidados
       </Button>
+
+      {isCreateGuestModalOpen && (
+        <CreateGuestsModal closeCreateGuests={closeCreateGuestModal} />
+      )}
     </div>
   );
 }

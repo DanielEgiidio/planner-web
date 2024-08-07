@@ -1,6 +1,6 @@
 import { Calendar, Tag, X } from "lucide-react";
 import { Button } from "../../components/button";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { api } from "../../lib/axios";
 import { useParams } from "react-router-dom";
 
@@ -13,13 +13,19 @@ export default function CreateActivityModal({
 }: CreateActivityModalProps) {
   const { tripId } = useParams();
 
+  const [occursAtDate, setOccursAtDate] = useState<string>("");
+  const [occursAtTime, setOccursAtTime] = useState<string>("");
+
   async function createActivity(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
 
     const title = data.get("title")?.toString();
-    const occurs_at = data.get("occurs_at")?.toString();
+    const occurs_at_date = data.get("occurs_at_date")?.toString();
+    const occurs_at_time = data.get("occurs_at_time")?.toString();
+
+    const occurs_at = `${occurs_at_date}T${occurs_at_time}`;
 
     await api.post(`/trips/${tripId}/activities`, {
       title,
@@ -35,11 +41,8 @@ export default function CreateActivityModal({
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="font-lg font-semibold">Cadastrar atividade</h2>
-            <button>
-              <X
-                className="size-5 text-zinc-400"
-                onClick={closeCreateActivityModal}
-              />
+            <button onClick={closeCreateActivityModal}>
+              <X className="w-5 h-5 text-zinc-400" />
             </button>
           </div>
 
@@ -50,7 +53,7 @@ export default function CreateActivityModal({
 
         <form onSubmit={createActivity} className="space-y-3">
           <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
-            <Tag className="text-zinc-400 size-5" />
+            <Tag className="text-zinc-400 w-5 h-5" />
             <input
               name="title"
               placeholder="Qual a atividade?"
@@ -58,23 +61,25 @@ export default function CreateActivityModal({
             />
           </div>
 
-          <div className="flex">
+          <div className="flex gap-2">
             <div className="h-14 flex-1 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
-              <Calendar className="text-zinc-400 size-5" />
               <input
-                type="datetime-local"
-                name="occurs_at"
-                placeholder="Data da atividade"
+                type="date"
+                name="occurs_at_date"
+                placeholder={occursAtDate ? "" : "Data da atividade"}
+                value={occursAtDate}
+                onChange={(e) => setOccursAtDate(e.target.value)}
                 className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
               />
             </div>
-            <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
-              <Calendar className="text-zinc-400 size-5" />
+            <div className="h-14 w-44 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
               <input
-                type="datetime-local"
-                name="occurs_at"
-                placeholder="Data da atividade"
-                className="bg-transparent text-lg placeholder-zinc-400 outline-none flex"
+                type="time"
+                name="occurs_at_time"
+                placeholder={occursAtTime ? "" : "Horário"}
+                value={occursAtTime}
+                onChange={(e) => setOccursAtTime(e.target.value)}
+                className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
               />
             </div>
           </div>
