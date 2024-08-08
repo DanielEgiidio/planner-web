@@ -33,14 +33,12 @@ export default function DestinationAndDateStep({
   }
 
   const displayedDate =
-    eventStartAndEndDates &&
-    eventStartAndEndDates.from &&
-    eventStartAndEndDates.to
-      ? format(eventStartAndEndDates.from, "d' de 'MMMM'", { locale: ptBR })
-          .concat(" até ")
-          .concat(
-            format(eventStartAndEndDates.to, "d' de 'MMMM'", { locale: ptBR })
-          )
+    eventStartAndEndDates?.from && eventStartAndEndDates?.to
+      ? `${format(eventStartAndEndDates.from, "d' de 'MMMM'", {
+          locale: ptBR,
+        })} até ${format(eventStartAndEndDates.to, "d' de 'MMMM'", {
+          locale: ptBR,
+        })}`
       : null;
 
   return (
@@ -83,6 +81,7 @@ export default function DestinationAndDateStep({
               mode="range"
               selected={eventStartAndEndDates}
               onSelect={setEventStartAndEndDates}
+              locale={ptBR}
             />
           </div>
         </div>

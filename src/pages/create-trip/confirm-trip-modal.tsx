@@ -3,6 +3,7 @@ import { FormEvent } from "react";
 import { Button } from "../../components/button";
 import { DateRange } from "react-day-picker";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface ConfirmTripModalProps {
   closeConfirmedTripModal: () => void;
@@ -25,10 +26,11 @@ export default function ConfirmTripModal({
     eventStartAndEndDates &&
     eventStartAndEndDates.from &&
     eventStartAndEndDates.to
-      ? `${format(
-          eventStartAndEndDates.from,
-          "d 'de' MMMM 'de' yyyy"
-        )} a ${format(eventStartAndEndDates.to, "d 'de' MMMM 'de' yyyy")}`
+      ? `${format(eventStartAndEndDates.from, "d 'de' MMMM 'de' yyyy", {
+          locale: ptBR,
+        })} a ${format(eventStartAndEndDates.to, "d 'de' MMMM 'de' yyyy", {
+          locale: ptBR,
+        })}`
       : "";
 
   return (

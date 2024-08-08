@@ -36,14 +36,10 @@ export default function ModalUpdateDateLocation({
   const updateTrip = async () => {
     if (eventStartAndEndDates.from && eventStartAndEndDates.to) {
       try {
-        // Reajustando as datas para evitar o problema de fusos horários
-        const adjustedStartDate = new Date(eventStartAndEndDates.from);
-        const adjustedEndDate = new Date(eventStartAndEndDates.to);
-
         await api.put(`/trips/${tripId}`, {
           destination,
-          starts_at: format(adjustedStartDate, "yyyy-MM-dd"),
-          ends_at: format(adjustedEndDate, "yyyy-MM-dd"),
+          starts_at: eventStartAndEndDates.from,
+          ends_at: eventStartAndEndDates.to,
         });
 
         setTripDates(eventStartAndEndDates);
