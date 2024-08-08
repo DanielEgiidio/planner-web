@@ -8,15 +8,6 @@ import { DateRange } from "react-day-picker";
 import { ptBR } from "date-fns/locale";
 import ModalUpdateDateLocation from "./modal-update-date-location";
 
-interface Trip {
-  id: string;
-  destination: string;
-  starts_at: string;
-  ends_at: string;
-  is_confirmed: boolean;
-  owner_email: string;
-}
-
 export default function DestinationAndDateHeader() {
   const { tripId } = useParams();
 
