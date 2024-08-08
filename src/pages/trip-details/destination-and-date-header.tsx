@@ -19,7 +19,7 @@ interface Trip {
 
 export default function DestinationAndDateHeader() {
   const { tripId } = useParams();
-  const [trip, setTrip] = useState<Trip | undefined>();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
     DateRange | undefined
@@ -29,7 +29,6 @@ export default function DestinationAndDateHeader() {
   useEffect(() => {
     api.get(`trips/${tripId}`).then((response) => {
       const tripData = response.data.trip;
-      setTrip(tripData);
       setEventStartAndEndDates({
         from: new Date(tripData.starts_at),
         to: new Date(tripData.ends_at),
