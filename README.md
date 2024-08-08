@@ -57,8 +57,6 @@ Aqui o usuário estará nos detalhes da viagem que ele está seja ele o owner(do
 
 ## ⚙ Setup
 
-### 📝 Requisites
-
 A versão live dessa aplicação serve apenas ao carater de visualização da estrutura, pois para algumas funções se faz necessário a conexão ao backend e ao banco de dados e como ambos se fazm com node e sqlite, se fazem por meio local, então para você ter total acesso as funcionalidades citadas você precisa primeiro do  <a href="https://github.com/DanielEgiidio/planner_backend">backend</a>, siga os passos para setar o backend no proprio repositório e depois baixe esse repositório após instalar suas dependências, sete as variaveis de ambiente(.env) que é basicamente a conexão ao backend;
 ```bash
 VITE_BASE_URL=http://localhost:3333
